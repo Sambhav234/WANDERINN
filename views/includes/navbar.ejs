@@ -1,0 +1,50 @@
+
+<style>
+
+.search-bar button{
+    background-color: #fe424d;
+    color: #fff;
+    padding: 0 1.3rem 0 1.3rem;
+    border-radius: 25px;
+}
+
+
+</style>
+
+
+
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/listings">Explore</a>
+        </div>
+
+        <div class="search-bar ms-auto navbar-nav">
+          <form class="d-flex">
+            <input class="form-control mr-sm-2 search-inp" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-danger my-2 my-sm-0 ms-2" type="submit"><i class="fa-solid fa-magnifying-glass" style="display: inline;margin-right: 3px;"></i>Search</button>
+          </form>
+        </div>
+        
+
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="/listings/new">Add new Listing</a>
+          <%if(!currUser){%> 
+            <!-- if user is not logged in then show the below two buttons , otherwise only logout one -->
+            <a class="nav-link login" href="/login"><b>Login</b></a>
+          <a class="nav-link signup" href="/signup"><b>Signup</b></a>
+          <%}%>
+          <%if(currUser){%>
+          <a class="nav-link" href="/logout">Logout</a>
+         <% }%>
+        </div>
+
+
+      </div>
+    </div>
+  </nav>

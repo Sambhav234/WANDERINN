@@ -1,0 +1,38 @@
+<%layout("/layouts/boilerplate")%>
+<body>
+
+    <br><br>
+    <div class="row">
+        <div class="col-6 offset-3">
+
+            <h3>SIGNUP ON WANDERINN :-</h3>
+                <br>
+                <form action="/signup" class="needs-validation" novalidate method="post">
+                <div class="mb-3">   
+                    <label for="username" class="form-label">Username : </label> 
+                    <input type="text" name="username" id="username" placeholder="Provide the username" class="form-control" required> 
+                    <div class="valid-feedback">looks good</div>
+                    <div class="invalid-feedback">Enter valid Username</div>
+                </div>
+                <div class="mb-3">   
+                    <label for="email" class="form-label">Email : </label> 
+                    <input type="email" name="email" id="email"  class="form-control" required> 
+                    <div class="valid-feedback">looks good</div>
+                    <div class="invalid-feedback">Enter valid Email</div>
+                </div>
+                <div class="mb-3">   
+                    <label for="password" class="form-label">Password : </label> 
+                    <input type="password" name="password" id="password"  class="form-control" required> 
+                    <div class="valid-feedback">looks good</div>
+                    <div class="invalid-feedback">Password can't be empty</div>
+                    
+                </div>
+
+                <button class="btn btn-success mb-3">Signup</button>
+            </form>
+
+
+
+        </div>
+
+    </div>

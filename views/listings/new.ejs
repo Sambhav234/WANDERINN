@@ -1,0 +1,70 @@
+<%layout("/layouts/boilerplate")%>
+<body>
+
+    <br><br>
+    <div class="row">
+        <div class="col-8 offset-1">
+
+
+            <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data"> 
+                <h3>CREATE A NEW LISTING AS WELL :-</h3>
+                <br>
+                <div class="mb-3">   
+                    <label for="title" class="form-label">Title : </label> 
+                    <input type="text" name="listing[title]" placeholder="type the title" class="form-control" required> 
+                    <div class="valid-feedback">Title looks good</div>
+                </div>
+        
+                <div class="mb-3">   
+                    <label for="description" class="form-label">Description : </label> 
+                    <input type="text" name="listing[description]" placeholder="type the description" class="form-control" required> 
+                    <div class="invalid-feedback">Write a short description</div>
+                </div>
+        
+                <div class="mb-3">   
+                    <label for="image" class="form-label">Upload Image : </label> 
+                    <input type="file" name="listing[image]" placeholder="Upload image" class="form-control" required> 
+
+                </div>
+        
+                <div  class="mb-3">   
+                    <label for="price" class="form-label ">Price : </label> 
+                    <input type="text" name="listing[price]" placeholder="1300" class="form-control" required> 
+                    <div class="invalid-feedback">Enter a valid price</div>
+                </div>
+        
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">   
+                        <label for="location" class="form-label">Location : </label> 
+                        <input type="text" name="listing[location]" placeholder="Jaipur,Rajasthan" class="form-control" required> 
+                        <div class="invalid-feedback">Location should be valid</div>
+                    </div>
+            
+                    <div class="col-md-8 mb-3">   
+                        <label for="country" class="form-label">Country : </label> 
+                        <input type="text" name="listing[country]" placeholder="India" class="form-control" required> 
+                        <div class="invalid-feedback">Write a valid country name</div>
+                    </div>
+
+                </div>
+               
+                <br>
+                <br>
+        
+        
+        
+                <button class="btn btn-dark" onclick="searchLocation()">Add</button>
+                <br><br><br>
+            </form>
+
+
+        </div>
+
+
+    </div>
+    
+ 
+    <script src="/JS/map.js"></script>
+    
+</body>

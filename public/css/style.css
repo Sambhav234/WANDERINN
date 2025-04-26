@@ -1,0 +1,241 @@
+
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height:100vh ;
+  }
+    
+.container{
+    flex: 1;
+}
+
+
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link{
+    color: #222222 !important;
+}
+
+.nav-link:hover{
+    font-weight: 500;
+}
+
+
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links,.f-info-socials,.f-info-brand{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-links :hover{
+    text-decoration: underline;
+}
+
+
+.f-info{
+    text-align: center;
+    height: 8rem;
+    display: flex;
+    background-color: #ededed;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+
+
+.f-info-socials i{ 
+    font-size: 1.3rem;
+    margin-right: 1.2rem;
+}
+
+.f-info-socials a {
+  color: #555;
+  text-decoration: none;
+}
+
+.f-info-socials i {
+  font-size: 24px; /* normal size */
+  color: #555; /* gray color */
+  transition: transform 0.2s ease, color 0.3s ease; /* smooth grow + color change */
+}
+
+.f-info-socials a:hover i {
+  transform: scale(1.2); /* slightly bigger */
+  color: #555; /* optional: change color on hover */
+}
+
+
+
+.card{
+    margin-right:2rem !important;
+    margin-bottom: 2.2rem !important;
+    border: none !important;
+
+}
+
+.review-card{
+    border: 1px solid black !important;
+}
+
+
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+
+.card-body{
+    padding: 0 !important;
+}
+
+.card-text p{
+    font-weight: 400 !important;
+}
+
+.card-img-top {
+    transition: opacity 0.3s ease, filter 0.3s ease;
+  }
+  
+  .card-img-top:hover {
+    opacity: 0.6;
+    filter: brightness(110%);
+  }
+  
+
+  .card-link{
+    text-decoration: none;
+  }
+
+
+  .show-img{
+    height: 35vh;
+    object-fit: cover;
+  }
+
+
+  .showbtns{
+    display: flex;
+  }
+
+  .editbtn:hover{
+    background-color: #fe424d !important;
+  }
+
+
+  #map { height: 200px;}
+
+ .tax-toggle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 1rem;
+    height:3.3rem ;
+    padding: 1rem;
+    margin-bottom: 8px;
+ }
+  
+    .filter{
+      text-align: center;
+      margin-right: 2rem;
+    }
+    .filter p{
+      font-size: 0.8rem;
+    }
+    .filter i{
+      opacity: 0.8;
+    }
+    .filter p{
+      opacity: 0.8;
+    }
+    .fa-solid{
+    opacity: 0.8;
+   }
+    .filter p:hover{
+      opacity: 1;
+      cursor: pointer;
+    }
+    .fa-solid:hover{
+      opacity: 1;
+      cursor: pointer;
+    }
+  
+    .filters-wrapper {
+        display: flex;
+        justify-content: space-between; /* This ensures proper spacing */
+        align-items: center;
+        flex-wrap: wrap; /* Still allow wrapping for mobile */
+        gap: 1rem;
+        padding: 0.5rem;
+      }
+      
+      #filters {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        gap: 1rem;
+        padding: 0.5rem 0;
+        scrollbar-width: thin;
+        flex: 1; /* Take available space */
+        min-width: 0; /* Important for flexbox scrolling */
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* Webkit scrollbar styling */
+      #filters::-webkit-scrollbar {
+        height: 6px;
+      }
+      #filters::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+      }
+      
+      .filter {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        text-align: center;
+      }
+      
+      .tax-toggle {
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-left: 1rem; /* Add some spacing from filters */
+      }
+      
+      @media (max-width: 768px) {
+        .filters-wrapper {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        
+        #filters {
+          width: 100%;
+        }
+        
+        .tax-toggle {
+          margin-left: 0;
+          margin-top: 0.5rem;
+          align-self: flex-start; /* Align left on mobile */
+        }
+      }
