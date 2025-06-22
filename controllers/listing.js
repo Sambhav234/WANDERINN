@@ -29,6 +29,34 @@ module.exports.showListing=async (req,res)=>{
 }
 
 
+module.exports.allListings = async (req, res) => {
+    const { search } = req.query;
+    let listings;
+
+    if (search) {
+        const regex = new RegExp(escapeRegex(search), "i");
+        listings = await listing.find({
+            $or: [{ title: regex }, { location: regex }]
+        });
+
+        if (listings.length === 0) {
+            req.flash("error", "No Hotels matching your search were found.");
+            return res.redirect("/listings");
+        }
+    } else {
+        listings = await listing.find({});
+    }
+
+    res.render("listings/index.ejs", { allListings: listings });
+};
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
+
+
+
 
 module.exports.destroylisting=async (req,res)=>{
     const {id}=req.params;
@@ -50,6 +78,10 @@ module.exports.newListing=async (req,res)=>{
     
     list.image={filename,url};
     //owner ki id jayegi ..then when we click show route..//id is populated with user details
+
+
+    console.log(list.category)
+    
     await list.save() //adding directly to the DB
     req.flash("success","New listing added successfully !!")//accepted in index.js by a MW and showed on index.ejs
     res.redirect("/listings");
@@ -93,3 +125,5 @@ module.exports.editListing=async (req,res,next)=>{
         }
 
 }
+
+

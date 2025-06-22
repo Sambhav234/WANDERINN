@@ -239,3 +239,19 @@ body {
           align-self: flex-start; /* Align left on mobile */
         }
       }
+
+
+/* Mobile navbar dropdown background */
+@media (max-width: 768px) {
+  .mobile-nav-bg {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+.navbar-nav .nav-link {
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to My Projects</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #111;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 120px;  /* adjust based on your actual logo size */
+      height: auto;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #4CAF50;
+      border-top: 6px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-top: 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">
+    <!-- Use your actual logo here -->
+    <img src="/uploads/fav.png" alt="My Project Logo">
+  </div>
+
+  <h2>WANDERINN..</h2>
+
+  <div class="spinner"></div>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "/listings";
+    }, 3500);
+  </script>
+
+</body>
+</html>

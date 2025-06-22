@@ -19,14 +19,14 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="collapse navbar-collapse mobile-nav-bg" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link" href="/listings">Explore</a>
         </div>
 
         <div class="search-bar ms-auto navbar-nav">
-          <form class="d-flex">
-            <input class="form-control mr-sm-2 search-inp" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex" action="/listings" method="get">
+            <input class="form-control mr-sm-2 search-inp" type="search" placeholder="Search" aria-label="Search" name="search" required>
             <button class="btn btn-outline-danger my-2 my-sm-0 ms-2" type="submit"><i class="fa-solid fa-magnifying-glass" style="display: inline;margin-right: 3px;"></i>Search</button>
           </form>
         </div>
@@ -48,3 +48,16 @@
       </div>
     </div>
   </nav>
+
+<!-- to clear the search bar after searching -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchForm = document.querySelector(".search-bar form");
+    searchForm.addEventListener("submit", () => {
+      const searchInput = searchForm.querySelector('input[name="search"]');
+      setTimeout(() => {
+        searchInput.value = ""; // Clears input after form submission
+      }, 10);
+    });
+  });
+</script>

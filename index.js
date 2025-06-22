@@ -2,9 +2,6 @@ if(process.env.NODE_ENV!="production"){
     require('dotenv').config()
 }
 
-
-
-
 const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
@@ -97,12 +94,24 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+
+
+
+
 app.use((req,res,next)=>{
     res.locals.Msg=req.flash("success");
     res.locals.error=req.flash("error");
-    res.locals.currUser=req.user;
+    res.locals.currUser=req.user||null;
     next();
 })
+
+
+app.get("/",(req,res)=>{
+    res.render("listings/home.ejs",{currUser: req.user||null});
+})
+
+
+
 
 
 // app.get("/demouser",async (req,res)=>{
@@ -122,20 +131,6 @@ app.use("/",userRoute); //for signup
 app.use("/listings",listingroute);
 app.use("/listings/:id/reviews",reviewroute);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.use((req, res, next) => {                       //for unmatched routes , since above one is not working ..
     next(new ExpressError(404, "Page Not Found"));
 });
@@ -144,6 +139,7 @@ app.use((err,req,res,next)=>{
     let {statuscode=500,message="Something went wrong !!"}=err;
     res.render("error.ejs",{message});
 })
+
 
 
 

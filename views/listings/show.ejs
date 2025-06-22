@@ -28,6 +28,10 @@
                                 <li> &#8377;<%=listings.price.toLocaleString("en-In")%></li>
                                 <li><%=listings.location%></li>
                                 <li><%=listings.country%></li>
+                                <%if(listings.category){%>
+                                <li><%=listings.category%></li>
+                                <%}%>
+                            
                     </ul>
 
 
