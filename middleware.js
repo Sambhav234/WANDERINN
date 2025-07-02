@@ -5,6 +5,8 @@ const {reviewSchema}=require("./schema.js");
 const Review=require("./models/reviews.js");
 const wrapAsync=require("./utils/wrapAsync.js");
  
+const {bookingSchema}=require("./schema.js");
+
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -81,3 +83,18 @@ module.exports.isAuthor=async(req,res,next)=>{
 
     next();
 };
+
+
+module.exports.validateBooking=(req,res,next)=>{
+    req.body.guests=Number(req.body.guests);
+    const {error}=bookingSchema.validate(req.body);
+    if(error){
+        const msg=error.details.map(el=>el.message).join(',');
+        console.log(error);
+        throw new ExpressError(msg,error.details[0].message);
+    }else{
+        next();
+    }
+}
+;
+

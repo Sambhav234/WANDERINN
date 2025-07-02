@@ -38,6 +38,12 @@ router.put("/:id/update",isLoggedIn,upload.single('listing[image]'),isOwner,vali
 //delete route 
 router.delete("/:id/delete",isLoggedIn,isOwner,wrapAsync(listingController.destroylisting));
 
+router.route("/:id/book")
+.get(isLoggedIn,async(req,res)=>{
+    const Id=req.params.id;
+    const listings=await listing.findById(Id);
+    res.render("listings/book.ejs",{listings});
+})
 
 
 router.get("/filter/:category", async (req, res) => {

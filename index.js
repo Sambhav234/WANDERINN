@@ -32,6 +32,9 @@ const reviewroute=require("./routes/review.js");
 
 const userRoute = require("./routes/user.js");
 
+const bookingroute=require("./routes/booking.js");
+
+const dashroute=require("./routes/dashboard.js");
 
 const dbUrl=process.env.ATLAS_DB;
 console.log(dbUrl);
@@ -94,6 +97,13 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+// | Step                       | Description                                     |
+// | -------------------------- | ----------------------------------------------- |
+// | `serializeUser()`          | Save user ID to session after login             |
+// | Cookie is stored           | Session ID is sent to browser                   |
+// | Every request sends cookie | Server reads cookie and session                 |
+// | `deserializeUser()`        | Uses user ID from session to fetch user from DB |
+// | `req.user` available       | Now you can use it in all routes                |
 
 
 
@@ -104,13 +114,6 @@ app.use((req,res,next)=>{
     res.locals.currUser=req.user||null;
     next();
 })
-
-
-app.get("/",(req,res)=>{
-    res.render("listings/home.ejs",{currUser: req.user||null});
-})
-
-
 
 
 
@@ -130,6 +133,8 @@ app.get("/",(req,res)=>{
 app.use("/",userRoute); //for signup
 app.use("/listings",listingroute);
 app.use("/listings/:id/reviews",reviewroute);
+app.use("/",bookingroute); 
+app.use("/",dashroute); 
 
 app.use((req, res, next) => {                       //for unmatched routes , since above one is not working ..
     next(new ExpressError(404, "Page Not Found"));

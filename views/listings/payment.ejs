@@ -1,0 +1,55 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card shadow rounded-4 p-4">
+        <div class="row">
+          <!-- Booking Summary -->
+          <div class="col-md-6 border-end">
+            <h4 class="mb-4 text-danger">Booking Summary</h4>
+            <p><strong>Booking For:</strong> <%= booking.listing.title %></p>
+            <p><strong>Price per Day:</strong> ₹<%= booking.listing.price %></p>
+            <p><strong>Number of Guests:</strong> <%= booking.guests %></p>
+            <p><strong>Total Days:</strong> <%= booking.days %></p>
+            <p class="fs-5"><strong>Total Amount:</strong> ₹<%= booking.totalAmount %></p>
+          </div>
+
+          <!-- Payment Options -->
+          <div class="col-md-6 ps-md-5 mt-4 mt-md-0">
+            <h4 class="mb-4 text-danger">Choose Payment Method</h4>
+
+            <form action="/bookings/payment/checkout" method="POST">
+              <!-- Hidden fields to send data -->
+              <input type="hidden" name="amount" value="<%= booking.totalAmount %>">
+              <input type="hidden" name="bookingId" value="<%= booking._id %>">
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="paymentMethod" value="upi" id="upi" checked>
+                <label class="form-check-label" for="upi">
+                  UPI / QR Code
+                </label>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="paymentMethod" value="card" id="card">
+                <label class="form-check-label" for="card">
+                  Debit / Credit Card
+                </label>
+              </div>
+
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="radio" name="paymentMethod" value="netbanking" id="netbanking">
+                <label class="form-check-label" for="netbanking">
+                  Net Banking
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-danger w-100 py-2 rounded-pill">Proceed to Pay ₹<%= booking.totalAmount %></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

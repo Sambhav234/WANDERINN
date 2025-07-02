@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
       folder: 'WANDERINN_dev',
-      allowed_formats:["jpg","png","jpeg","avif"],
+      allowed_formats:["jpg","png","jpeg","avif","webp"],
     }
   });
 

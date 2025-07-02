@@ -1,0 +1,47 @@
+<% layout('layouts/boilerplate') %>
+
+<section class="container my-5">
+  <h1 class="mb-4" style="color: red;">Book Your Stay</h1>
+
+  <form action="/bookings" method="POST" class="p-4 border rounded bg-light shadow-sm" autocomplete="off">
+
+    <input type="hidden" name="listingId" value="<%=listings._id%>">
+    <div class="mb-3">
+      <label for="name" class="form-label" autocomplete="off">Full Name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" pattern="^[0-9]{10}$" maxlength="10" title="Please enter a 10-digit phone number" id="phone" name="phone" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="checkin" class="form-label">Check-In Date</label>
+      <input type="date"  min="<%= new Date().toISOString().split('T')[0] %>" class="form-control" id="checkin" name="checkin" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="checkout" class="form-label">Check-Out Date</label>
+      <input type="date" class="form-control" id="checkout" name="checkout" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="guests" class="form-label">Number of Guests</label>
+      <input type="number" class="form-control" id="guests" name="guests" min="1" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="message" class="form-label">Additional Requests (Optional)</label>
+      <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-danger w-100">Submit Booking</button>
+
+  </form>
+</section>

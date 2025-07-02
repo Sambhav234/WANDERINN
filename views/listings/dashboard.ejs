@@ -1,0 +1,184 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  .profile-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  .profile-box img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 1.5rem;
+  }
+
+  /* Booking Cards Scrollable Row */
+  .booking-cards {
+    margin-top: 6rem;
+    margin-bottom: 7rem;
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+  }
+
+  .booking-cards::-webkit-scrollbar {
+    height: 8px;
+  }
+  .booking-cards::-webkit-scrollbar-thumb {
+    background: #908a8b;
+    border-radius: 4px;
+  }
+
+  .booking-card {
+    margin-left: 1.7rem;
+    flex: 0 0 280px;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 6px rgba(0,0,0,0.05);
+    scroll-snap-align: start;
+  }
+
+.booking-card:hover {
+  background-color: #fcfbfb;
+  transform: translateY(-4px) scale(1.04);  /* ✅ Combined */
+  box-shadow: 2px 2px 8px #fe424d;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+  .cncelbtn{
+    margin-top: 1.2rem;
+  }
+  .cncelbtn:hover{
+    transform: scale(1.03);
+    box-shadow: 2px 2px 5px #98978b;
+ 
+  }
+</style>
+
+
+
+
+
+<div class="container my-5">
+  <!-- Profile Section -->
+  <div class="profile-box">
+    <img src="<%= user.profileImage.url %>" alt="Profile Picture">
+    <div>
+      <h3 class="mb-0"><%= user.username %></h3>
+
+      
+         <small><%= user.email %></small>
+          <br><br>
+          <div style="display:flex;padding: 3px;">
+                <form action="/logout">
+                  <button class="btn btn-danger" >Logout</button>
+                </form>
+
+                <form action="/dashboard/updateprofile" method="get">
+                  <button class="btn btn-success" style="margin-left: 4rem; font-size: smaller;" ><small>Update Profile Picture</small></button>
+                </form>
+          </div>
+         
+     
+    </div>
+  </div>
+
+  <!-- Bookings Section -->
+  <div class="mb-3 d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">Your Bookings</h4>
+  </div>
+  <% if (bookings.length === 0) { %>
+    <p>No bookings yet.</p>
+  <% } else { %>
+    <div class="booking-cards">
+      <% bookings.forEach(b => { %>
+        <div class="booking-card">
+          <h5><%= b.listing.title %></h5>
+          <p><strong>Booked on:</strong> <%=b.currDate.toLocaleString("en-In",{timeZone: "Asia/Kolkata",
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              weekday: "short",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: true})%></p>
+          <p><strong>Customer-name:</strong> <%= b.name %></p>
+          <p><strong>Phn no.:</strong> <%= b.phone%></p>
+          <p><strong>Check-in:</strong> <%= b.checkin.toDateString() %></p>
+          <p><strong>Check-out:</strong> <%= b.checkout.toDateString() %></p>
+          <p><strong>Guests:</strong> <%= b.guests %></p>
+          <p><strong>Amount:</strong> ₹<%= b.totalAmount %></p>
+
+          <div>
+            <form action="/bookings/<%=b._id%>/delete?_method=delete" method="post">
+              <button type="button" class="btn btn-danger cncelbtn" onclick="showbox(this)">Cancel</button>
+            </form>
+          </div>
+
+
+          <form id="cnfrmdlt" class="delete-form" action="/bookings/<%= b._id%>/delete?_method=delete" method="POST" style="display: none;"></form>
+
+         
+
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+
+ <!-- Confirmation Modal -->
+          <div id="confirmModal" class="modal" tabindex="-1" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);">
+            <div style="background:white; padding:20px; max-width:400px; margin:10% auto; border-radius:8px; text-align:center;">
+              <h4>Are you sure you want to cancel this booking?</h4>
+              <p>This action cannot be undone.</p>
+              <button class="btn btn-danger" onclick="confirmDelete()">Yes</button>
+              <button class="btn btn-secondary" onclick="hideModal()">NO</button>
+            </div>
+          </div>
+
+
+<!-- SCRIPT For cancel Btn-->
+
+<script>
+let activeform=null;
+
+
+function showbox(button){
+  activeform=document.getElementById('cnfrmdlt');
+
+  document.getElementById("confirmModal").style.display='block';
+}
+
+
+function hideModal(){
+  document.getElementById('confirmModal').style.display='none';
+  activeform=null;
+}
+
+function confirmDelete(){
+  if(activeform){
+    activeform.submit();
+  }
+}
+
+</script>
+
+
+
+
+

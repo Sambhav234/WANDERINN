@@ -12,7 +12,7 @@ module.exports.listingSchema=joi.object({
         image:joi.string().allow("",null),
         country:joi.string().required(),
         location:joi.string().required(),
-        category: joi.string().required() // ✅ Make sure this line is present
+        category: joi.string() // ✅  Make sure this line is present
     }).required(),
 
 });
@@ -24,4 +24,18 @@ module.exports.reviewSchema=joi.object({
         comment:joi.string().required()
     }).required(),
 
+});
+
+
+
+
+module.exports.bookingSchema = joi.object({
+  listingId: joi.string().required(),
+  name: joi.string().required(),
+  email: joi.string().email().required(),
+  phone: joi.string().required(),
+  checkin: joi.date().required(),
+  checkout: joi.date().min(joi.ref('checkin')).required(),
+  guests: joi.number().min(1).required(),
+  message: joi.string().allow('', null)
 });

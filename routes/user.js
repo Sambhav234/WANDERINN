@@ -8,6 +8,25 @@ const {savedredirectUrl}=require("../middleware.js");
 const userController=require("../controllers/user.js");
 
 
+router.route("/")
+.get((req,res)=>{
+    res.render("listings/home.ejs",{currUser: req.user||null});
+})
+
+router.route("/privacy")
+.get((req,res)=>{
+    res.render("listings/privacy.ejs",{currUser:req.user || null});
+})
+
+router.route('/terms')
+.get((req,res)=>{
+    res.render("listings/terms.ejs",{currUser:req.user || null});
+})
+
+
+
+
+
 
 router.route("/signup")
 .get((req,res)=>{

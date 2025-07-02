@@ -1,0 +1,139 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .profile-box {
+    background-color: #f9f9f9;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .profile-box:hover {
+    box-shadow: 0 10px 30px rgba(254, 66, 77, 0.2);
+  }
+
+  #profilePreview {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #6c757d;
+    transition: transform 0.3s ease;
+  }
+
+  #profilePreview:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+
+
+
+  .input-group {
+  flex-wrap: wrap;
+}
+
+.input-group .form-control[type="file"] {
+  min-width: 0;
+  width: 70%;
+}
+
+@media (max-width: 576px) {
+  .input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-group .form-control[type="file"],
+  .input-group .btn {
+    width: 100%;
+  }
+}
+
+
+  @media (max-width: 576px) {
+    .profile-box {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .input-group {
+      flex-direction: column;
+    }
+
+    .input-group .form-control {
+      margin-bottom: 0.5rem;
+    }
+
+    .input-group .btn {
+      width: 100%;
+    }
+
+    form button.btn-outline-danger {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  function previewImage(input) {
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const image = document.getElementById('profilePreview');
+        image.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
+
+<!-- Profile Card -->
+<div class="profile-box bg-white">
+  <!-- Profile Image -->
+  <div class="position-relative">
+    <img
+      id="profilePreview"
+      src="<%= user.profileImage.url || '/uploads/user.png' %>"
+      alt="Profile Picture"
+    />
+  </div>
+
+  <!-- Info + Forms -->
+  <div class="flex-grow-1">
+    <h3 class="fw-semibold mb-1"><%= user.username %></h3>
+    <small class="text-muted d-block mb-3"><%= user.email %></small>
+
+    <!-- Upload Form -->
+    <form
+      action="/dashboard/user/updateprofile"
+      method="POST"
+      enctype="multipart/form-data"
+      class="d-flex flex-column gap-2"
+      id="uploadForm"
+    >
+      <div class="input-group">
+        <input
+          type="file"
+          name="profileImage"
+          accept="image/*"
+          onchange="previewImage(this)"
+          class="form-control"
+          required
+        />
+        <button type="submit" class="btn btn-success">Upload</button>
+      </div>
+    </form>
+
+    <!-- Reset Button -->
+    <form action="/dashboard/user/resetprofile" method="POST" class="mt-2">
+      <button type="submit" class="btn btn-outline-danger">Reset to Default</button>
+    </form>
+  </div>
+</div>

@@ -1,11 +1,48 @@
 <%layout("/layouts/boilerplate")%>
+
+<style>
+    @media (max-width:768px) {
+        #mpdisplay{
+            display: none;
+        }
+    }
+
+.card-header {
+  word-break: break-word;
+  text-align: center;
+}
+
+/* General: Prevent stars from overflowing */
+.starability-result {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Mobile-specific tweaks */
+@media (max-width: 576px) {
+  .starability-result {
+    font-size: 1.2rem; /* slightly reduce size if needed */
+    margin-left: 0;    /* prevent pushing outside */
+    text-align: left;
+  }
+
+  .review-card {
+    width: 100% !important; /* make card full width */
+    word-wrap: break-word;
+  }
+
+  .review-card .card-text {
+    font-size: 0.95rem;
+  }
+}
+
+
+</style>
+
+
 <body>
-
-
-
-
-
-
 
 
     <div class="row">
@@ -21,7 +58,7 @@
                 <img src="<%=listings.image.url%>" class="card-img-top  show-img" alt="...">
 
                 <div class="card-body mt-2">
-                  <p class="card-text ms-2"><b>Owned by : <%=listings.owner.username%></b></p>
+                  <p class="card-text ms-2"><b>Listed by : <%=listings.owner.username%></b></p>
 
                     <ul>
                                 <li><%=listings.description%></li>
@@ -29,7 +66,7 @@
                                 <li><%=listings.location%></li>
                                 <li><%=listings.country%></li>
                                 <%if(listings.category){%>
-                                <li><%=listings.category%></li>
+                                <!-- <li><%=listings.category%></li> -->
                                 <%}%>
                             
                     </ul>
@@ -39,19 +76,64 @@
                 </div>
               </div>
 
-
+  <div class="row">
     <%if(currUser && currUser._id.equals(listings.owner._id)){%>
         <!-- agar currUser hi post ka owner hai to hi edit or delete opt -->
-        <div class="row">
+      
             <div class="showbtns mb-5">
               <a href="/listings/<%=listings._id%>/edit" class="btn btn-dark col-md-2 editbtn">EDIT</a>
-              <form action="/listings/<%=listings._id%>/delete?_method=delete" method="POST"  onsubmit="return confirm('Are you sure you want to delete this listing? This action cannot be undone.')" >
-                  <button class="btn btn-dark  offset-6">Delete</button>
+              <form action="/listings/<%=listings._id%>/delete?_method=delete" method="POST"  >
+                  <button type="button" class="btn btn-dark  offset-6" onclick="showConfirmModal(this)">Delete</button>
               </form>
             </div>
 
-        </div>
+
+            <!-- Hidden Form (submit only on confirm) -->
+<form class="delete-form" action="/listings/<%= listings._id %>/delete?_method=delete" method="POST" style="display: none;"></form>
+
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="modal" tabindex="-1" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);">
+  <div style="background:white; padding:20px; max-width:400px; margin:10% auto; border-radius:8px; text-align:center;">
+    <h4>Are you sure you want to delete this listing?</h4>
+    <p>This action cannot be undone.</p>
+    <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+    <button class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+  </div>
+</div>
+
+
+
+<!-- Script -->
+
+<script>
+let activeForm=null;
+
+function showConfirmModal(button){
+    activeForm=document.querySelector('.delete-form'); //the form right after the button
+    document.getElementById('confirmModal').style.display='block';
+}
+
+
+function hideModal(){
+    document.getElementById('confirmModal').style.display='none';
+    activeForm=null;
+}
+
+function confirmDelete(){
+    if(activeForm){
+        activeForm.submit();
+    }else{
+        console.log("no form available");
+    }
+}
+
+</script>
+
+        
     <%}%>
+               <a href="/listings/<%=listings._id%>/book" class="btn btn-secondary col-md-2 editbtn" style="margin-left: 0.75rem;" >Book</a>
+        
+    </div>
 
         </div>
 
@@ -127,13 +209,15 @@
 
             <%}%>
 
+<div id="mpdisplay">
 
         <h4>WHERE YOU'LL BE :-</h4>
         <br>
-        <div id="location-message" style="margin-top: 10px; color: red;"></div>
+    <div id="location-message" style="margin-top: 10px; color:#fe424d ;"></div>
         <div id="map" style="height: 400px; margin-top: 10px;"></div>
         <div id="map"> </div>
-
+</div>
+    
         </div>
 
     </div>

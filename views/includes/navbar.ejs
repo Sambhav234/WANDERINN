@@ -9,6 +9,42 @@
 }
 
 
+.profile-icon-link {
+  display: inline-block;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.profile-icon-link:hover {
+  border-color: #fe424d;
+}
+
+.profile-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+@media (min-width:768px) {
+  #newlistoption{
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width:768px) {
+  #newlistoption{
+    margin-top: 4px;
+    padding-bottom: 0;
+  }
+}
+
+
 </style>
 
 
@@ -33,14 +69,21 @@
         
 
         <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="/listings/new">Add new Listing</a>
+          <a class="nav-link" id="newlistoption" href="/listings/new">Add new Listing</a>
           <%if(!currUser){%> 
             <!-- if user is not logged in then show the below two buttons , otherwise only logout one -->
             <a class="nav-link login" href="/login"><b>Login</b></a>
           <a class="nav-link signup" href="/signup"><b>Signup</b></a>
           <%}%>
           <%if(currUser){%>
-          <a class="nav-link" href="/logout">Logout</a>
+              <a href="/dashboard" class="profile-icon-link d-none d-md-inline-block" title="Go to Dashboard">
+                <img src="<%= currUser.profileImage.url || '/uploads/user.png' %>" alt="Profile Picture" class="profile-icon">
+              </a>
+
+               <a class="nav-link d-md-none" href="/dashboard"><b>Dashboard</b></a>
+                <!-- Mobile logout -->
+                <a class="nav-link d-md-none" href="/logout"><b>Logout</b></a>
+          <!-- <a class="nav-link" href="/logout">Logout</a> -->
          <% }%>
         </div>
 
